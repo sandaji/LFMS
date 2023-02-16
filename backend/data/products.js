@@ -15,7 +15,7 @@ const products = [
     {
      
       name: 'Book Two',
-      image: '/images/phone.jpg',
+      image: '/images/p2.jpg',
       description:
         'Physic class eleven th part two',
       brand: 'Bharti PUB',
@@ -28,7 +28,7 @@ const products = [
     {
       
       name: 'Book Three',
-      image: '/images/mouse.jpg',
+      image: '/images/p2.jpg',
       description:
         'Electronic class eleven th part three',
       brand: 'BalaJi PUB',
@@ -41,7 +41,7 @@ const products = [
     {
       
       name: 'Book Four',
-      image: '/images/camera.jpg',
+      image: '/images/p2.jpg',
       description:
         'Electronic class five th part one',
       brand: 'BalaJi PUB',
@@ -54,7 +54,7 @@ const products = [
     {
       
       name: 'Book Five',
-      image: '/images/alexa.jpg',
+      image: '/images/p2.jpg',
       description:
         'Math book class eleven th part one',
       brand: 'NCERT',
@@ -67,7 +67,7 @@ const products = [
     {
       
       name: 'Book Six',
-      image: '/images/playstation.jpg',
+      image: '/images/p2.jpg',
       description:
         'Math class eleven th part Two',
       brand: 'NCERT',

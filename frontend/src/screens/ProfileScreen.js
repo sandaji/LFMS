@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
-import { useNavigate } from 'react-router-dom'
-import {toast, ToastContainer} from 'react-toastify'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -25,11 +23,9 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!userInfo) {
-      navigate('/login')
+      history.push('/login')
     } else {
       if (!user.name) {
         dispatch(getUserDetails('profile'))
@@ -38,12 +34,12 @@ const ProfileScreen = ({ location, history }) => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, navigate, userInfo, user])
+  }, [dispatch, history, userInfo, user])
 
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      setMessage(toast.warning('Passwords do not match'))
+      setMessage('Passwords do not match')
     } else {
       dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
@@ -51,7 +47,6 @@ const ProfileScreen = ({ location, history }) => {
 
   return (
     <Row>
-      <ToastContainer />
       <Col md={3}>
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}

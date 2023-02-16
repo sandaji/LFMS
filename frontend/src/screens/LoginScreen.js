@@ -21,7 +21,7 @@ import React, { useState, useEffect } from 'react'
    const redirectInUrl = new URLSearchParams(search).get('redirect');
    const redirect = redirectInUrl ? redirectInUrl : '/';
 
-  useEffect(() => {
+   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
@@ -66,7 +66,7 @@ import React, { useState, useEffect } from 'react'
        <Row className='py-3'>
          <Col>
            New Customer?{' '}
-          <Link to={`/register?redirect=${redirect}`}>Create your account</Link>
+         <Link to={`/register?redirect=${redirect}`}>Create an Account</Link>
          </Col>
        </Row>
      </FormContainer>

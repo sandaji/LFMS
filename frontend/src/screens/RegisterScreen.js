@@ -7,7 +7,7 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { register } from '../actions/userActions'
 
-const RegisterScreen = ({ location, history }) => {
+const RegisterScreen = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -95,7 +95,6 @@ const RegisterScreen = ({ location, history }) => {
         <Col>
           Have an Account?{' '}
           <Link to={`/login?redirect=${redirect}`}>Login</Link>
-
         </Col>
       </Row>
     </FormContainer>

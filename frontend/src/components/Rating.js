@@ -1,10 +1,7 @@
-import {BsStarFill, BsStarHalf,BsStar} from 'react-icons/bs'
+import {BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs'
 
 function Rating(props) {
-  const { rating, numReviews, caption } = props;
-
-  
-
+const { rating, numReviews, caption } = props;
 
   return (
     <div className="rating">

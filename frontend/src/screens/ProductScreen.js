@@ -1,17 +1,15 @@
-import React, {useState,  useEffect} from 'react'
-import { Link, useParams } from 'react-router-dom'
- import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
- import Rating from '../components/Rating'
+import React, {useState,  useEffect, useContext} from 'react'
+import { Link, useParams} from 'react-router-dom'
+ import { Row, Col, Image,Badge, ListGroup, Card, Button } from 'react-bootstrap'
+ import Rating from '../components/Rating';
+ import {BiArrowBack} from 'react-icons/bi'
  import { useDispatch, useSelector } from 'react-redux'
  import Message from '../components/Message'
  import Loader from '../components/Loader'
- import {toast} from 'react-toastify'
  import { listProductDetails, createProductReview } from '../actions/productActions'
  import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
-
-
- const ProductScreen = ({ props }) => {
+ const ProductScreen = () => {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const dispatch = useDispatch()
@@ -29,33 +27,35 @@ import { Link, useParams } from 'react-router-dom'
     error: errorProductReview,
   } = productReviewCreate
 
-const {id} = useParams();
+  const {id} = useParams();
    useEffect(() => {
     if (successProductReview) {
-      toast.success('Review Submitted!')
+      alert('Review Submitted!')
       setRating(0)
       setComment('')
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
     dispatch(listProductDetails(id))
-   }, [dispatch, id, successProductReview])
+   }, [dispatch,id, successProductReview])
 
+   
    const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
-      createProductReview(props.params.id, {
+      createProductReview(id, {
         rating,
         comment,
       })
     )
   }
 
+   
   
  
     return (
       <>
         <Link className='btn btn-light my-3' to='/'>
-          Go Back
+         <BiArrowBack />
         </Link>
         {loading ? 
         <Loader /> :
@@ -73,11 +73,11 @@ const {id} = useParams();
               </ListGroup.Item>
               <ListGroup.Item>
                 <Rating
-                  value={product.rating}
-                  text={`${product.numReviews} reviews`}
+                  rating={product.rating}
+                  numReviews={product.numReviews}
                 />
               </ListGroup.Item>
-              <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+              <ListGroup.Item>Price: ksh{product.price}</ListGroup.Item>
               <ListGroup.Item>Description: {product.description}</ListGroup.Item>
             </ListGroup>
           </Col>
@@ -88,7 +88,7 @@ const {id} = useParams();
                   <Row>
                     <Col>Price:</Col>
                     <Col>
-                      <strong>${product.price}</strong>
+                      <strong>ksh{product.price}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -97,19 +97,22 @@ const {id} = useParams();
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
-                    </Col>
+                    {product.countInStock > 0 ? (
+                        <Badge bg="success">In Stock</Badge>
+                      ) : (
+                        <Badge bg="danger">Unavailable</Badge>
+                      )}                    </Col>
                   </Row>
                 </ListGroup.Item>
-                <ListGroup.Item>
-                  <Button
-                    className='btn-block'
-                    type='button'
-                    disabled={product.countInStock === 0}
-                  >
-                    Reserve
-                  </Button>
-                </ListGroup.Item>
+                {product.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <div className="d-grid">
+                      <Button variant="primary">
+                        Add to Cart
+                      </Button>
+                    </div>
+                  </ListGroup.Item>
+                )}
               </ListGroup>
             </Card>
           </Col>
@@ -134,7 +137,7 @@ const {id} = useParams();
                    {userInfo ? (
                      <form className="form" onSubmit={submitHandler}>
                      <div>
-                       <h2>Write a customer review</h2>
+                       <h2>Write your review</h2>
                      </div>
                      <div>
                        <label htmlFor="rating">Rating</label>

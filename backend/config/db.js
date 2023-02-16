@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 
  const connectDB = async () => {
-  mongoose.set('strictQuery', false);
+  mongoose.set('strictQuery',true)
    try {
-     const conn = await mongoose.connect( 'mongodb://127.0.0.1:27017/lfms');
+     const conn = await mongoose.connect('mongodb://127.0.0.1:27017/lfms');
 
-     console.log('MONGODB CONNECTED TO SERVER')
+     console.log('SERVER CONNECTED TO MONGOBD')
    } catch (error) {
-     console.error('MONGODB DISCONNECTED')
+     console.error(`Error: ${error.message}`)
      process.exit(1)
    }
  }

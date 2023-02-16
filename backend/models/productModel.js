@@ -64,9 +64,6 @@ import mongoose from 'mongoose'
        required: true,
        default: 0,
      },
-     id:{
-      type:Number,
-     }
    },
    {
      timestamps: true,
