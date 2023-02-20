@@ -7,13 +7,13 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 // import morgan from 'morgan'
 
 
+const app = express();
 dotenv.config()
 
 connectDB();
 
 
 
- const app = express();
 
 //  if (process.env.NODE_ENV === 'development') {
 //   app.use(morgan('dev'))
