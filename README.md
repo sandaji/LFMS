@@ -14,4 +14,4 @@
 
 ## my portfolio
 
-- comming soon on : [https://ijamyvincent.web.app](https://ijamyvincent.web.app)
+- comming soon on : [https://ijamyvincent.vercel.app](https://ijamyvincent.vercel.app)

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -10,7 +11,7 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const logoutHandler = () => {
+  const signoutHandler = () => {
     dispatch(logout())
   }
 
@@ -20,30 +21,70 @@ const Header = () => {
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
         <LinkContainer to='/'>
-          <Navbar.Brand>BookStore</Navbar.Brand>
+          <Navbar.Brand>awesome Library</Navbar.Brand>
         </LinkContainer>  
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ml-auto'>
+            <Nav className='mr-auto'>
             
-            
-           
             {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <i className='fas fa-user'></i> Sign In
-                  </Nav.Link>
-                </LinkContainer>
-              )}
+                    <NavDropdown title="menu" id="basic-nav-dropdown">
+                      <LinkContainer to="/profile">
+                        <NavDropdown.Item>User Profile</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/orderhistory">
+                        <NavDropdown.Item>Order History</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/orderhistory">
+                        <NavDropdown.Item>Chat</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Divider />
+                      <Link
+                        className="dropdown-item"
+                        to="#signout"
+                        onClick={signoutHandler}
+                      >
+                        Sign Out
+                      </Link>
+                    </NavDropdown>
+                  ) : (
+                    <Link className="nav-link" to="/login">
+                      Sign In
+                    </Link>
+                  )}
+           
+            {userInfo && userInfo.isAdmin && (
+    <NavDropdown title={userInfo.name} id="admin-nav-dropdown">
+    <LinkContainer to="/admin/dashboard">
+      <NavDropdown.Item>Dashboard</NavDropdown.Item>
+    </LinkContainer>
+    <LinkContainer to="/admin/products">
+      <NavDropdown.Item>Products</NavDropdown.Item>
+    </LinkContainer>
+    <LinkContainer to="/admin/orders">
+      <NavDropdown.Item>Orders</NavDropdown.Item>
+    </LinkContainer>
+    <LinkContainer to="/admin/users">
+      <NavDropdown.Item>Users</NavDropdown.Item>
+    </LinkContainer>
+  </NavDropdown>
+)}
+
+                {/* // <NavDropdown title={userInfo.name} id='username'>
+                //   <LinkContainer to='/profile'>
+                //     <NavDropdown.Item>Profile</NavDropdown.Item>
+                //   </LinkContainer>
+                //   <NavDropdown.Item onClick={logoutHandler}>
+                //     Logout
+                //   </NavDropdown.Item>
+                // </NavDropdown>
+              // ) : (
+              //   <LinkContainer to='/login'>
+              //     <Nav.Link>
+              //       <i className='fas fa-user'></i> Sign In
+              //     </Nav.Link>
+              //   </LinkContainer>
+              // )} */}
             </Nav>
           </Navbar.Collapse>
         </Container>

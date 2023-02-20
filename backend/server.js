@@ -32,7 +32,7 @@ connectDB();
  app.use(notFound)
  app.use(errorHandler)
 
- const port = process.env.PORT ||5000;
+ const port = process.env.PORT || 3500;
  app.listen(port, console.log(`Server running in ${process.env.NODE_ENV} at http://localhost:${port}`))
 
  
