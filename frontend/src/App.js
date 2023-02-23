@@ -10,6 +10,9 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen';
 import Dashboard from './admin/Dashboard';
+import AddUser from './admin/addUser';
+import ListUser from './admin/listUser';
+import ListBooks from './admin/listBooks';
 
 function App(){
 
@@ -31,6 +34,10 @@ function App(){
            {/* //protected route */}
             <Route path='/profile' element={ <ProfileScreen />} />
             <Route path="/admin/dashboard" element={ <Dashboard /> } />
+            {/* <Route path="/admin/addproduct" element={ <AddProduct /> } /> */}
+            <Route path="/admin/adduser" element={ <AddUser /> } />
+            <Route path="/admin/listuser" element={ <ListUser /> } />
+            <Route path="/admin/listbooks" element={ <ListBooks /> } />
           </Routes> 
          </Container>
        </main>

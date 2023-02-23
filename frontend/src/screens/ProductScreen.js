@@ -1,11 +1,12 @@
-import React, {useState,  useEffect, useContext} from 'react'
+import React, {useState,  useEffect} from 'react'
 import { Link, useParams} from 'react-router-dom'
- import { Row, Col, Image,Badge, ListGroup, Card, Button } from 'react-bootstrap'
+ import { Row, Col, Image,Badge, ListGroup, Card, Button, Form } from 'react-bootstrap'
  import Rating from '../components/Rating';
  import {BiArrowBack} from 'react-icons/bi'
  import { useDispatch, useSelector } from 'react-redux'
  import Message from '../components/Message'
  import Loader from '../components/Loader'
+ import {toast} from 'react-toastify'
  import { listProductDetails, createProductReview } from '../actions/productActions'
  import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
@@ -30,7 +31,7 @@ import { Link, useParams} from 'react-router-dom'
   const {id} = useParams();
    useEffect(() => {
     if (successProductReview) {
-      alert('Review Submitted!')
+      toast.sucess('Review Submitted!')
       setRating(0)
       setComment('')
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
@@ -45,6 +46,7 @@ import { Link, useParams} from 'react-router-dom'
       createProductReview(id, {
         rating,
         comment,
+        userInfo
       })
     )
   }
@@ -77,7 +79,7 @@ import { Link, useParams} from 'react-router-dom'
                   numReviews={product.numReviews}
                 />
               </ListGroup.Item>
-              <ListGroup.Item>Price: ksh{product.price}</ListGroup.Item>
+              <ListGroup.Item>Price: ksh{product.category}</ListGroup.Item>
               <ListGroup.Item>Description: {product.description}</ListGroup.Item>
             </ListGroup>
           </Col>
@@ -135,7 +137,7 @@ import { Link, useParams} from 'react-router-dom'
                      <Message variant='danger'>{errorProductReview}</Message>
                    )}
                    {userInfo ? (
-                     <form className="form" onSubmit={submitHandler}>
+                     <Form className="form" onSubmit={submitHandler}>
                      <div>
                        <h2>Write your review</h2>
                      </div>
@@ -163,12 +165,12 @@ import { Link, useParams} from 'react-router-dom'
                     
                      <div>
                        <label />
-                       <button className="primary" type="submit">
+                       <Button className="primary" type="submit">
                          Submit
-                       </button>
+                       </Button>
                      </div>
                      
-                   </form>
+                   </Form>
                      
                    ) : (<Message>Please <Link to='/login'
                    >sign in</Link>to write a review</Message>)}

@@ -25,9 +25,11 @@ const Header = () => {
         </LinkContainer>  
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='mr-auto'>
+            <Nav className='justify-content-end'>
             
             {userInfo ? (
+              <>
+              <Nav.Link >chat</Nav.Link>
                     <NavDropdown title="menu" id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
@@ -46,7 +48,7 @@ const Header = () => {
                       >
                         Sign Out
                       </Link>
-                    </NavDropdown>
+                    </NavDropdown></>
                   ) : (
                     <Link className="nav-link" to="/login">
                       Sign In

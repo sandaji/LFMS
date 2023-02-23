@@ -33,14 +33,14 @@ const createProductReview = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
-    const alreadyReviewed = product.reviews.find(
-      (r) => r.user.toString() === req.user._id.toString()
-    )
+    // const alreadyReviewed = product.reviews.find(
+    //   (r) => r.user.toString() === req.user._id.toString()
+    // )
 
-    if (alreadyReviewed) {
-      res.status(400)
-      throw new Error('Product already reviewed')
-    }
+    // if (alreadyReviewed) {
+    //   res.status(400)
+    //   throw new Error('Product already reviewed')
+    // }
 
     const review = {
       name: req.user.name,
@@ -65,4 +65,25 @@ const createProductReview = asyncHandler(async (req, res) => {
   }
 })
 
- export { getProducts, getProductById,  createProductReview }
+
+
+const createProduct = (req, res) => {
+  Product.create(req.body)
+    .then((todo) => {
+      console.log({ todo });
+      res.json({
+        message: "Cheers!! You have successfully added TODO",
+        todo,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        message: "Sorry your todo list cannot be added",
+        error: err.message,
+      });
+    });
+};
+
+
+
+ export { getProducts, getProductById,  createProductReview,createProduct,}
