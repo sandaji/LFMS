@@ -1,6 +1,6 @@
 import React, {useState,  useEffect} from 'react'
-import { Link, useParams} from 'react-router-dom'
- import { Row, Col, Image,Badge, ListGroup, Card, Button, Form } from 'react-bootstrap'
+import { Link, useNavigate,useLocation, useParams} from 'react-router-dom'
+ import { Row, Col, Image,Badge, ListGroup, Card, Button, Form,FloatingLabel } from 'react-bootstrap'
  import Rating from '../components/Rating';
  import {BiArrowBack} from 'react-icons/bi'
  import { useDispatch, useSelector } from 'react-redux'
@@ -9,8 +9,9 @@ import { Link, useParams} from 'react-router-dom'
  import {toast} from 'react-toastify'
  import { listProductDetails, createProductReview } from '../actions/productActions'
  import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
-
- const ProductScreen = () => {
+ import { addToCart } from '../actions/cartActions';
+ 
+ const ProductScreen = (props) => {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const dispatch = useDispatch()
@@ -31,7 +32,7 @@ import { Link, useParams} from 'react-router-dom'
   const {id} = useParams();
    useEffect(() => {
     if (successProductReview) {
-      toast.sucess('Review Submitted!')
+      toast.success('Review Submitted!')
       setRating(0)
       setComment('')
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
@@ -41,17 +42,29 @@ import { Link, useParams} from 'react-router-dom'
 
    
    const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    if (!comment || !rating) {
+      toast.error('Please enter comment and rating');
+      return;
+    }
     dispatch(
       createProductReview(id, {
-        rating,
-        comment,
-        userInfo
+        rating: rating,
+        comment: comment,
+        name: userInfo.name
       })
     )
   }
+  const { search } = useLocation();
+  const navigate= useNavigate();
 
+  const handleAddToCart = () => {
    
+    toast.info('visit the library within the day to pick your book')
+      dispatch(addToCart(product._id));
+      navigate('/cart');
+    };
+  
   
  
     return (
@@ -79,7 +92,7 @@ import { Link, useParams} from 'react-router-dom'
                   numReviews={product.numReviews}
                 />
               </ListGroup.Item>
-              <ListGroup.Item>Price: ksh{product.category}</ListGroup.Item>
+              <ListGroup.Item>{product.category}</ListGroup.Item>
               <ListGroup.Item>Description: {product.description}</ListGroup.Item>
             </ListGroup>
           </Col>
@@ -109,8 +122,8 @@ import { Link, useParams} from 'react-router-dom'
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">
-                        Add to Cart
+                      <Button variant="primary"  onClick={handleAddToCart}>
+                        Reserve
                       </Button>
                     </div>
                   </ListGroup.Item>
@@ -141,27 +154,28 @@ import { Link, useParams} from 'react-router-dom'
                      <div>
                        <h2>Write your review</h2>
                      </div>
-                     <div>
-                       <label htmlFor="rating">Rating</label>
-                       <select id="rating" value={rating}
+                     <FloatingLabel controlId="floatingSelect" label='Rating'>
+                      <Form.Select id="rating" value={rating} style={{ height: '30px' }}
                         onChange={(e) => setRating(e.target.value)}>
-                           <option value="">Select</option>
-                           <option value="1">1- Bad</option>
-                           <option value="2">2- Fair</option>
-                           <option value="3">3- Good</option>
-                           <option value="4">4- Very good</option>
-                           <option value="5">5- Excelent</option>
-
-                       </select>
-                     </div>
-                       <div>
-                       <label htmlFor="comment">Comment</label>
-                       <textarea
-                         id="comment"
-                         value={comment}
-                         onChange={(e) => setComment(e.target.value)}
-                       ></textarea>
-                     </div>
+                        <option value="">Rating</option>
+                        <option value="1">1- Bad</option>
+                        <option value="2">2- Fair</option>
+                        <option value="3">3- Good</option>
+                        <option value="4">4- Very good</option>
+                        <option value="5">5- Excelent</option>
+                        </Form.Select>
+                      </FloatingLabel>
+             
+               
+<FloatingLabel controlId="comment" label="write your Comments">
+<Form.Control
+  as="textarea"
+  name="comment"
+  value={comment}
+  onChange={(e) => setComment(e.target.value)}
+  style={{ height: '100px' }}
+/>
+</FloatingLabel>
                     
                      <div>
                        <label />

@@ -18,10 +18,10 @@ const Product = ({ product }) => {
         </Link>
 
         <Card.Text>
-        <Rating rating={product.rating} numReviews={product.numReviews} />
+        <Rating  rating={product.rating} numReviews={product.numReviews} />
         </Card.Text>
 
-        <Card.Text>ksh {product.category}</Card.Text>
+        <Card.Text> {product.category}</Card.Text>
       </Card.Body>
     </Card>
   )

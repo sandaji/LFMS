@@ -39,11 +39,7 @@ const Dashboard = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (password !== confirmPassword) {
-      setMessage(toast.error('Passwords do not match'))
-    } else {
-      dispatch(register(name,image,brand,category,description,rating,numReviews,price,countInStock))
-    }
+
   }
 
       return (

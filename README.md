@@ -15,3 +15,14 @@
 ## my portfolio
 
 - comming soon on : [https://ijamyvincent.vercel.app](https://ijamyvincent.vercel.app)
+
+
+
+
+
+
+    // if (password !== confirmPassword) {
+    //   setMessage(toast.error('Passwords do not match'))
+    // } else {
+    //   dispatch(register(name,image,brand,category,description,rating,numReviews,price,countInStock))
+    // }

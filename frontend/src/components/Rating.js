@@ -4,7 +4,7 @@ function Rating(props) {
 const { rating, numReviews, caption } = props;
 
   return (
-    <div className="rating">
+    <span className="rating">
     <span>{
           rating >= 1
             ? <BsStarFill style={{ fill: '#ffc000' }} />
@@ -56,7 +56,7 @@ const { rating, numReviews, caption } = props;
     ) : (
       <span>{' ' + numReviews + ' reviews'}</span>
     )}
-  </div>
+  </span>
   );
 }
 export default Rating;

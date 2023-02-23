@@ -1,7 +1,7 @@
-import {useState} from 'react';
-import { useSelector } from 'react-redux'
+
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
+import {ToastContainer} from 'react-toastify'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
@@ -13,10 +13,15 @@ import Dashboard from './admin/Dashboard';
 import AddUser from './admin/addUser';
 import ListUser from './admin/listUser';
 import ListBooks from './admin/listBooks';
+import EditBooks from './admin/editBooks';
+import CartScreen from './screens/CartScreen';
 
 function App(){
 
   return (
+<>      <ToastContainer  closeButton={false} position="top-right"  />
+
+
     <Router>
     
       <Header />
@@ -30,6 +35,7 @@ function App(){
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/' element={<HomeScreen />} exact />
             <Route path='/product/:id' element={<ProductScreen />}  />
+            <Route path='/cart' element={<CartScreen />}  />
            
            {/* //protected route */}
             <Route path='/profile' element={ <ProfileScreen />} />
@@ -38,12 +44,14 @@ function App(){
             <Route path="/admin/adduser" element={ <AddUser /> } />
             <Route path="/admin/listuser" element={ <ListUser /> } />
             <Route path="/admin/listbooks" element={ <ListBooks /> } />
+            <Route path="/admin/books/edit" element={ <EditBooks /> } />
           </Routes> 
          </Container>
        </main>
        <Footer />
  
     </Router>
+    </>
   );
 }
 
