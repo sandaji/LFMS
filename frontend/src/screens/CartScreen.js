@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap';
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../actions/cartActions';
+import {BiArrowBack} from 'react-icons/bi'
+import { toast } from 'react-toastify';
 
 const CartScreen = ({ location, }) => {
 
@@ -29,16 +31,18 @@ const CartScreen = ({ location, }) => {
   };
 
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping');
+    toast.info('visit the library within the day to pick your book')
+
+    navigate('/login?redirect=/');
   };
 
   return (
     <Row>
       <Col md={8}>
-        <h1>Shopping Cart</h1>
+        <h1>Confirmation Screen</h1>
         {cartItems.length === 0 ? (
           <Message>
-            Your cart is empty <Link to="/">Go Back</Link>
+<Link to="/"><BiArrowBack />{"   "}THERE IS NOTHING TO DISPLAY</Link> 
           </Message>
         ) : (
           <ListGroup variant="flush">
@@ -60,11 +64,11 @@ const CartScreen = ({ location, }) => {
                         dispatch(addToCart(item.product, Number(e.target.value)))
                       }
                     >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
+                      {/* {[...Array(item.countInStock).keys()].map((x) => (
+                        <div key={x + 1} value={x+0 }>*/}
+                          {1} 
+                        {/* </div> */}
+                      {/* ))} */}
                     </Form.Control>
                   </Col>
                   <Col md={2}>
@@ -83,11 +87,12 @@ const CartScreen = ({ location, }) => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>
-                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
+                {/* Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items */}
+                Price of this book if lost
               </h2>
               ksh
               {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .reduce((acc, item) => acc +  item.price, 0)
                 .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>

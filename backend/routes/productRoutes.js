@@ -2,7 +2,7 @@ import express, { Router } from 'express'
 import {
   getProducts,
   getProductById,
-  createProductReview,
+  createProductReview,createProduct
 } from '../controllers/productController.js'
 import { protect } from '../middleware/authMiddleware.js'
 
@@ -13,6 +13,9 @@ import { protect } from '../middleware/authMiddleware.js'
  router.route('/').get(getProducts).post(protect)
  router.route('/:id/reviews').post(protect, createProductReview)
  router.route('/:id').get(getProductById).put(protect)
+
+ 
+router.post('/', createProduct);
 
 
 

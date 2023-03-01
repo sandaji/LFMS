@@ -60,7 +60,6 @@ import { Link, useNavigate,useLocation, useParams} from 'react-router-dom'
 
   const handleAddToCart = () => {
    
-    toast.info('visit the library within the day to pick your book')
       dispatch(addToCart(product._id));
       navigate('/cart');
     };

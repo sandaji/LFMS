@@ -66,22 +66,24 @@ const createProductReview = asyncHandler(async (req, res) => {
 })
 
 
+const createProduct = async (req, res) => {
+  const { name, price, image,brand, description, countInStock } = req.body;
 
-const createProduct = (req, res) => {
-  Product.create(req.body)
-    .then((todo) => {
-      console.log({ todo });
-      res.json({
-        message: "Cheers!! You have successfully added TODO",
-        todo,
-      });
-    })
-    .catch((err) => {
-      res.status(404).json({
-        message: "Sorry your todo list cannot be added",
-        error: err.message,
-      });
+  try {
+    const product = await Product.create({
+      name,
+      price,
+      image,
+      brand,
+      description,
+      countInStock,
     });
+
+    res.status(201).json({ success: true, product });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
 };
 
 

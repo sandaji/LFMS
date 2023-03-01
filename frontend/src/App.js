@@ -15,6 +15,8 @@ import ListUser from './admin/listUser';
 import ListBooks from './admin/listBooks';
 import EditBooks from './admin/editBooks';
 import CartScreen from './screens/CartScreen';
+import AdminScreen from './admin/AdminScreen';
+import AddProductScreen from './admin/AddProductScreen';
 
 function App(){
 
@@ -40,8 +42,9 @@ function App(){
            {/* //protected route */}
             <Route path='/profile' element={ <ProfileScreen />} />
             <Route path="/admin/dashboard" element={ <Dashboard /> } />
-            {/* <Route path="/admin/addproduct" element={ <AddProduct /> } /> */}
-            <Route path="/admin/adduser" element={ <AddUser /> } />
+            <Route path="/admin/main" element={ <AdminScreen /> } />
+            <Route path="/admin/add/user" element={ <AddUser /> } />
+            <Route path="/admin/add/product" element={ <AddProductScreen /> } />
             <Route path="/admin/listuser" element={ <ListUser /> } />
             <Route path="/admin/listbooks" element={ <ListBooks /> } />
             <Route path="/admin/books/edit" element={ <EditBooks /> } />

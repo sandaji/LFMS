@@ -1,56 +1,71 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import FormContainer from '../components/FormContainer'
-import { register } from '../actions/userActions'
-import { toast } from 'react-toastify'
-import {Form,Button,Row,Col} from 'react-bootstrap' 
+import { useDispatch, useSelector } from 'react-redux';
+import { Form, Button } from 'react-bootstrap';
+import { createProduct } from '../actions/productActions';
+import Loader from '../components/Loader';
+import { initProductCreate } from '../actions/productActions';
 
+const AdminDashboard = () => {
+  const dispatch = useDispatch();
+  const [name, setName] = useState('')
+  const [image, setImage] = useState()
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('')
+  const [rating, setRating] = useState(0)
+  const [numReviews, setNumReviews] = useState(0)
+  const [price, setPrice] = useState(0)
+  const [countInStock, setCountInStock] = useState(0)
+  const [message, setMessage] = useState(null)
 
-const Dashboard = () => {
-      const [name, setName] = useState('')
-      const [image, setImage] = useState()
-      const [brand, setBrand] = useState('')
-      const [category, setCategory] = useState('')
-      const [description, setDescription] = useState("")
-      const [rating, setRating] = useState(0)
-      const [numReviews, setNumReviews] = useState(0)
-      const [price, setPrice] = useState(0)
-      const [countInStock, setCountInStock] = useState(0)
-      const [message, setMessage] = useState(null)
-
-  const dispatch = useDispatch()
-
-  const userRegister = useSelector((state) => state.userRegister)
-  const { loading, error, userInfo } = userRegister
-
-  const navigate = useNavigate();
-   const { search } = useLocation();
-   const redirectInUrl = new URLSearchParams(search).get('redirect');
-   const redirect = redirectInUrl ? redirectInUrl : '/';
-
-  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]);
-
+    const productCreate = useSelector((state) => state.productCreate);
+    const { loading, error, success, product } = productCreate;
+  
+    useEffect(() => {
+      dispatch(initProductCreate());
+    }, [dispatch]);
+    
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    dispatch(createProduct({ name, price, image, description, category,rating,price,countInStock}));
+  };
 
-  }
-
-      return (
-        <FormContainer >
-           <h1>Sign Up</h1>
-      {message && <Message variant='danger'>{message}</Message>}
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loader />}
+  return (
     <Form onSubmit={submitHandler}>
-      <Row>
-        <Col md={3}>
+      <h2>Create Product</h2>
+      {<Loader />  && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {success && <p>Product created successfully!</p>}
+      <Form.Group controlId='name'>
+        <Form.Label>Name</Form.Label>
+        <Form.Control
+          type='text'
+          placeholder='Enter name'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </Form.Group>
+
+
+      <Form.Group controlId='image'>
+        <Form.Label>Image URL</Form.Label>
+        <Form.Control
+          type='text'
+          placeholder='Enter image URL'
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group controlId='description'>
+        <Form.Label>Description</Form.Label>
+        <Form.Control
+          as='textarea'
+          placeholder='Enter description'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </Form.Group>
+
         <Form.Group controlId='name'>
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -69,18 +84,8 @@ const Dashboard = () => {
             onChange={(e) => setImage(e.target.value)}
           ></Form.Control>
         </Form.Group>
-            
-        <Form.Group controlId='name'>
-          <Form.Label>Isbn</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Enter isbn'
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-            </Col>
-            <Col>
+
+       
             <Form.Group controlId='name'>
           <Form.Label>Category</Form.Label>
           <Form.Control
@@ -90,17 +95,8 @@ const Dashboard = () => {
             onChange={(e) => setCategory(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controlId='name'>
-          <Form.Label>desc</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Enter ddescription'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-            </Col>
-            <Col>
+
+
             <Form.Group controlId='name'>
           <Form.Label>Rating</Form.Label>
           <Form.Control
@@ -119,7 +115,7 @@ const Dashboard = () => {
             onChange={(e) => setNumReviews(e.target.value)}
           ></Form.Control>
         </Form.Group>
-            </Col><Col>
+            
             <Form.Group controlId='name'>
           <Form.Label>Price</Form.Label>
           <Form.Control
@@ -129,6 +125,7 @@ const Dashboard = () => {
             onChange={(e) => setPrice(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
         <Form.Group controlId='name'>
           <Form.Label>CountInStock</Form.Label>
           <Form.Control
@@ -138,14 +135,12 @@ const Dashboard = () => {
             onChange={(e) => setCountInStock(e.target.value)}
           ></Form.Control>
         </Form.Group>
-            </Col>
-            </Row>
-    
-            <Button >Add New Book</Button>
-            </Form>
-        </FormContainer> 
-   
-  )
-}
 
-export default Dashboard
+      <Button variant='primary' type='submit'>
+        Create Product
+      </Button>
+    </Form>
+  );
+};
+
+export default AdminDashboard;
