@@ -6,14 +6,18 @@ import {
   listProducts,
   deleteProduct,
 } from '../actions/productActions';
+import { Button, Form,Table } from 'react-bootstrap';
+import {FaTrash,FaEdit} from 'react-icons/fa';
+import {MdOutlineKeyboardBackspace,} from 'react-icons/md';
+import {GrUpdate,} from 'react-icons/gr';
 
 const EditBooks=(props)=> {
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState('');
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [image, setImage] = useState('');
-  const [brand, setBrand] = useState('');
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [coverImage, setCoverImage] = useState('');
+  const [numReviews, setNumReviews] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState('');
   const [description, setDescription] = useState('');
@@ -34,7 +38,7 @@ const EditBooks=(props)=> {
     loading: loadingDelete,
     success: successDelete,
     error: errorDelete,
-  } = productDelete;
+  } = productDelete || {};
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,16 +49,16 @@ const EditBooks=(props)=> {
     return () => {
       //
     };
-  }, [successSave, successDelete]);
+  }, [successSave,dispatch, successDelete]);
 
   const openModal = (product) => {
     setModalVisible(true);
     setId(product._id);
-    setName(product.name);
-    setPrice(product.price);
+    setTitle(product.title);
+    setAuthor(product.author);
     setDescription(product.description);
-    setImage(product.image);
-    setBrand(product.brand);
+    setCoverImage(product.coverImage);
+    setNumReviews(product.numReviews);
     setCategory(product.category);
     setCountInStock(product.countInStock);
   };
@@ -63,10 +67,10 @@ const EditBooks=(props)=> {
     dispatch(
       saveProduct({
         _id: id,
-        name,
-        price,
-        image,
-        brand,
+        title,
+        author,
+        coverImage,
+        numReviews,
         category,
         countInStock,
         description,
@@ -79,7 +83,7 @@ const EditBooks=(props)=> {
   const uploadFileHandler = (e) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
-    bodyFormData.append('image', file);
+    bodyFormData.append('coverImage', file);
     setUploading(true);
     axios
       .post('/api/uploads', bodyFormData, {
@@ -88,7 +92,7 @@ const EditBooks=(props)=> {
         },
       })
       .then((response) => {
-        setImage(response.data);
+        setCoverImage(response.data);
         setUploading(false);
       })
       .catch((err) => {
@@ -98,149 +102,154 @@ const EditBooks=(props)=> {
   };
   return (
     <div className="content content-margined">
-      <div className="product-header">
+    
         <h3>Products</h3>
-        <button className="button primary" onClick={() => openModal({})}>
+        {/* <Button className="button primary" onClick={() => openModal({})}>
           Create Product
-        </button>
-      </div>
+        </Button> */}
+     
       {modalVisible && (
-        <div className="form">
-          <form onSubmit={submitHandler}>
-            <ul className="form-container">
-              <li>
+          <Form onSubmit={submitHandler}>
+            
                 <h2>Create Product</h2>
-              </li>
-              <li>
                 {loadingSave && <div>Loading...</div>}
                 {errorSave && <div>{errorSave}</div>}
-              </li>
+           
 
-              <li>
-                <label htmlFor="name">Name</label>
-                <input
+              <Form.Group>
+                <Form.Label htmlFor="title">title</Form.Label>
+                <Form.Control
                   type="text"
-                  name="name"
-                  value={name}
-                  id="name"
-                  onChange={(e) => setName(e.target.value)}
-                ></input>
-              </li>
-              <li>
-                <label htmlFor="price">Price</label>
-                <input
+                  title="title"
+                  value={title}
+                  id="title"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label htmlFor="author">author</Form.Label>
+                <Form.Control
                   type="text"
-                  name="price"
-                  value={price}
-                  id="price"
-                  onChange={(e) => setPrice(e.target.value)}
-                ></input>
-              </li>
-              <li>
-                <label htmlFor="image">Image</label>
-                <input
+                  title="author"
+                  value={author}
+                  id="author"
+                  onChange={(e) => setAuthor(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label htmlFor="coverImage">coverImage</Form.Label>
+                <Form.Control
                   type="text"
-                  name="image"
-                  value={image}
-                  id="image"
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-                <input type="file" onChange={uploadFileHandler}></input>
+                  title="coverImage"
+                  value={coverImage}
+                  id="coverImage"
+                  onChange={(e) => setCoverImage(e.target.value)}
+                />
+                <Form.Control type="file" onChange={uploadFileHandler}/>
                 {uploading && <div>Uploading...</div>}
-              </li>
-              <li>
-                <label htmlFor="brand">Brand</label>
-                <input
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label htmlFor="numReviews">numReviews</Form.Label>
+                <Form.Control
                   type="text"
-                  name="brand"
-                  value={brand}
-                  id="brand"
-                  onChange={(e) => setBrand(e.target.value)}
-                ></input>
-              </li>
-              <li>
-                <label htmlFor="countInStock">CountInStock</label>
-                <input
+                  title="numReviews"
+                  value={numReviews}
+                  id="numReviews"
+                  onChange={(e) => setNumReviews(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label htmlFor="countInStock">CountInStock</Form.Label>
+                <Form.Control
                   type="text"
-                  name="countInStock"
+                  title="countInStock"
                   value={countInStock}
                   id="countInStock"
                   onChange={(e) => setCountInStock(e.target.value)}
-                ></input>
-              </li>
-              <li>
-                <label htmlFor="name">Category</label>
-                <input
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label htmlFor="title">Category</Form.Label>
+                <Form.Control
                   type="text"
-                  name="category"
+                  title="category"
                   value={category}
                   id="category"
                   onChange={(e) => setCategory(e.target.value)}
-                ></input>
-              </li>
-              <li>
-                <label htmlFor="description">Description</label>
-                <textarea
-                  name="description"
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label htmlFor="description">Description</Form.Label>
+                <Form.Control
+                  title="description"
                   value={description}
                   id="description"
                   onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
-              </li>
-              <li>
-                <button type="submit" className="button primary">
-                  {id ? 'Update' : 'Create'}
-                </button>
-              </li>
-              <li>
-                <button
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Button type="submit" variant="success">
+                  {id ? <GrUpdate  variant="success"/> : 'Create'}
+                </Button>
+              </Form.Group>
+
+              <Form.Group>
+                <Button
                   type="button"
                   onClick={() => setModalVisible(false)}
                   className="button secondary"
                 >
-                  Back
-                </button>
-              </li>
-            </ul>
-          </form>
-        </div>
+                 <MdOutlineKeyboardBackspace />
+                </Button>
+             </Form.Group>
+           
+          </Form>
+      
       )}
 
       <div className="product-list">
-        <table className="table">
+        <Table striped bordered hover>
           <thead>
             <tr>
+              <th>No.</th>
               <th>ID</th>
-              <th>Name</th>
-              <th>Price</th>
+              <th>title</th>
+              <th>author</th>
               <th>Category</th>
-              <th>Brand</th>
+              <th>countInStock</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product) => (
               <tr key={product._id}>
+                <td>{product.count}</td>
                 <td>{product._id}</td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
+                <td>{product.title}</td>
+                <td>{product.author}</td>
                 <td>{product.category}</td>
-                <td>{product.brand}</td>
-                <td>
-                  <button className="button" onClick={() => openModal(product)}>
-                    Edit
-                  </button>{' '}
-                  <button
-                    className="button"
+                <td>{product.countInStock}</td>
+                <td className='d-flex justify-content-between '>
+                  <Button onClick={() => openModal(product)}>
+                    <FaEdit />
+                  </Button>{' '}
+                  <Button
+                    className="button" variant="danger"
                     onClick={() => deleteHandler(product)}
                   >
-                    Delete
-                  </button>
+                   <FaTrash />
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
     </div>
   );
