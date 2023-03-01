@@ -78,12 +78,12 @@ import { Link, useNavigate,useLocation, useParams} from 'react-router-dom'
           <>
           <Row>
           <Col md={6}>
-            <Image src={product.image} alt={product.name} fluid />
+            <Image src={product.coverImage} alt={product.title} fluid />
           </Col>
           <Col md={3}>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h3>{product.name}</h3>
+                <h3>{product.title}</h3>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Rating
@@ -100,9 +100,7 @@ import { Link, useNavigate,useLocation, useParams} from 'react-router-dom'
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Price:</Col>
-                    <Col>
-                      <strong>ksh{product.price}</strong>
+                    <Col>{product.author}
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -112,7 +110,7 @@ import { Link, useNavigate,useLocation, useParams} from 'react-router-dom'
                     <Col>Status:</Col>
                     <Col>
                     {product.countInStock > 0 ? (
-                        <Badge bg="success">In Stock</Badge>
+                        <Badge bg="success">Available</Badge>
                       ) : (
                         <Badge bg="danger">Unavailable</Badge>
                       )}                    </Col>

@@ -9,7 +9,7 @@ import ProductScreen from './screens/ProductScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen';
-import Dashboard from './admin/Dashboard';
+import AdminDashboard from './admin/Dashboard';
 import AddUser from './admin/addUser';
 import ListUser from './admin/listUser';
 import ListBooks from './admin/listBooks';
@@ -17,6 +17,7 @@ import EditBooks from './admin/editBooks';
 import CartScreen from './screens/CartScreen';
 import AdminScreen from './admin/AdminScreen';
 import AddProductScreen from './admin/AddProductScreen';
+import AddBookForm from './admin/addBooks';
 
 function App(){
 
@@ -41,13 +42,14 @@ function App(){
            
            {/* //protected route */}
             <Route path='/profile' element={ <ProfileScreen />} />
-            <Route path="/admin/dashboard" element={ <Dashboard /> } />
+            <Route path="/admin/dashboard" element={ <AdminDashboard /> } />
             <Route path="/admin/main" element={ <AdminScreen /> } />
             <Route path="/admin/add/user" element={ <AddUser /> } />
-            <Route path="/admin/add/product" element={ <AddProductScreen /> } />
+            {/* <Route path="/admin/add/product" element={ <AddProductScreen /> } /> */}
+            <Route path="/admin/add/product" element={ <AddBookForm /> } />
             <Route path="/admin/listuser" element={ <ListUser /> } />
             <Route path="/admin/listbooks" element={ <ListBooks /> } />
-            <Route path="/admin/books/edit" element={ <EditBooks /> } />
+            <Route path="/admin/products/edit" element={ <EditBooks /> } />
           </Routes> 
          </Container>
        </main>

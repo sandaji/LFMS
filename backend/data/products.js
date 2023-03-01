@@ -1,14 +1,13 @@
 const products = [
     {
       
-      name: 'Book One',
-      image: '/images/p2.jpg',
+      title: 'Book One',
+      coverImage: '/images/p2.jpg',
       description:
         'Physic class eleven th part one',
-      brand: 'Bharati PUB',
+      author: 'ijamy vincent',
       category: 'Science',
-      price: 89.99,
-      countInStock: 3,
+      stock: 3,
       rating: 4.5,
       numReviews: 4,
     },

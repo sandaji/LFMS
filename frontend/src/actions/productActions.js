@@ -74,10 +74,6 @@ import axios from 'axios'
   }
 } 
 
-export const initProductCreate = () => async (dispatch) => {
-  dispatch({ type: PRODUCT_CREATE_INIT });
-};
-
 
 export const createProductReview = (productId, review) => async (
   dispatch,

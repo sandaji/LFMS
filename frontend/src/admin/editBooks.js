@@ -18,15 +18,16 @@ const EditBooks=(props)=> {
   const [countInStock, setCountInStock] = useState('');
   const [description, setDescription] = useState('');
   const [uploading, setUploading] = useState(false);
+
   const productList = useSelector((state) => state.productList);
-  const { loading, products, error } = productList;
+  const { loading, products = [], error } = productList || {};
 
   const productSave = useSelector((state) => state.productSave);
   const {
     loading: loadingSave,
     success: successSave,
     error: errorSave,
-  } = productSave?.response;
+  } = productSave || {};
 
   const productDelete = useSelector((state) => state.productDelete);
   const {

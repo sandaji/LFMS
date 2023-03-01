@@ -33,14 +33,14 @@ const createProductReview = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
-    // const alreadyReviewed = product.reviews.find(
-    //   (r) => r.user.toString() === req.user._id.toString()
-    // )
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
+    )
 
-    // if (alreadyReviewed) {
-    //   res.status(400)
-    //   throw new Error('Product already reviewed')
-    // }
+    if (alreadyReviewed) {
+      res.status(400)
+      throw new Error('Product already reviewed')
+    }
 
     const review = {
       name: req.user.name,
@@ -67,16 +67,16 @@ const createProductReview = asyncHandler(async (req, res) => {
 
 
 const createProduct = async (req, res) => {
-  const { name, price, image,brand, description, countInStock } = req.body;
+  const { title, author, coverImage,category, description, countInStock, numReviews } = req.body;
 
   try {
     const product = await Product.create({
-      name,
-      price,
-      image,
-      brand,
+      title,
+      author,
+      coverImage,
+      category,
       description,
-      countInStock,
+      countInStock,numReviews
     });
 
     res.status(201).json({ success: true, product });

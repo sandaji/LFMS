@@ -23,9 +23,9 @@ import mongoose from 'mongoose'
     //    required: true,
     //    ref: 'User',
     //  },
-     name: {type: String,required: true,},
-     image: {type: String,required: true,},
-     brand: {type: String,required: true,},
+     title: {type: String,required: true,},
+     coverImage: {type: String,required:true},
+     author: {type: String,required: true,},
      category: {type: [String],required: true,},
      description: {type: String,required: true,},
      reviews: [reviewSchema],
@@ -38,11 +38,7 @@ import mongoose from 'mongoose'
        required: true,
        default: 0,
      },
-     price: {
-       type: Number,
-       required: true,
-       default: 0,
-     },
+
      countInStock: {
        type: Number,
        required: true,

@@ -8,14 +8,15 @@ import bcrypt from 'bcryptjs'
      isAdmin: true,
    },
    {
-     name: 'Anand Raj',
-     email: 'anand@example.com',
+     name: 'user',
+     email: 'user@example.com',
      password: bcrypt.hashSync('123456', 10),
    },
    {
-     name: 'Rahul Raj',
-     email: 'rahul@example.com',
+     name: 'ijamy',
+     email: 'ijamy@example.com',
      password: bcrypt.hashSync('123456', 10),
+     isAdmin: true,
    },
  ]
 
