@@ -1,0 +1,21 @@
+{
+  "name": "lfms",
+  "description": "- create a module that will allow librarians to manage basic librarry duties",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch backend --exec backend/server.js",
+    "build": "rm -rf dist && backend -d dist && cd frontend && npm install && npm run build",
+    "serve":"node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandaji/lfms.git"
+  },
+  "author": "ijamy vincent",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sandaji/lfms/issues"
+  },
+  "homepage": "https://github.com/sandaji/lfms#readme"
+}
