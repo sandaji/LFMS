@@ -6,15 +6,21 @@ const Widget = ({ type }) => {
   let data;
   const [count, setCount] = useState(0)
 
-  //temporary
-    useEffect(() => {
+ 
+  useEffect(() => {
     const fetchCount = async () => {
-      const response = await fetch('/api/products');
-      const data = await response.json();
-      setCount(data.count);
+      try {
+        const response = await fetch("/api/products");
+        const data = await response.json();
+        setCount(data.count);
+      } catch (error) {
+        console.error(error);
+        // Handle the error here, such as displaying an error message
+      }
     };
     fetchCount();
-    }, []);
+  }, []);
+
   
   const diff = 2;
 
